@@ -66,7 +66,7 @@ function Logs(props: any){
 
     return (<>
         <AdminNav
-            name={location.state.name}
+            name={"Hatdog"}
             setOpenAside={setOpenAside}
             openAside={openAside}
         />

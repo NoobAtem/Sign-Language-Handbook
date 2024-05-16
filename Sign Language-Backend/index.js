@@ -103,6 +103,8 @@ app.get('/GetTest', (req, res) => {
         }
     });
 });
+
+
 app.post('/DeleteUser', (req, res) => {
     const { accountID } = req.body;
     console.log(accountID);
@@ -121,6 +123,21 @@ app.post('/DeleteUser', (req, res) => {
     });
 });
 
+app.get('/GetHandbookPage', (req, res) => {
+    const getSql = "SELECT * FROM handbook";
+    con.query(getSql, (err, result) => {
+        res.json({data: result});
+    });
+})
+
+app.post('/AddPage', (req, res) =>{
+    const { title, description } = req.body;
+    const insertSql = 'INSERT INTO handbook (subject_title, subject_description) VALUES (?, ?)'
+
+    con.query(insertSql, [title, description], (err, res) => {
+        
+    })
+});
 
 // Start the server
 app.listen(port, () => {

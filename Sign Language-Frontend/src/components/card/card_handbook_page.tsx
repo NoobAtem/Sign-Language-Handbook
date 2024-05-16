@@ -9,9 +9,30 @@ import axios from "axios"
 
 
 function CardHandbookList(props: any){
-    const [cards, setCards] = useState();
+    const [cards, setCards] = useState([<CardHandTitle/>]);
 
-        
+    useEffect(() => {
+        axios
+            .get("http://localhost:5000/GetHandbookPage")
+            .then((response) => {
+                const data = response.data["data"];
+                const arr = [];
+                for (let i = 0; i < data.length; i++){
+                    arr.push(
+                        <CardHandTitle
+                            title={data[i].subject_title}
+                            desc={data[i].subject_description}
+                        />
+                    )
+                }
+                setCards(arr);
+            })
+            .catch((error) => {
+                console.error("Error fetching users:", error);
+            });
+    }, []); 
+    
+    console.log(cards);
 
     return(
         <div className="container-fluid" style={{width: "100%"}}>
@@ -30,7 +51,9 @@ function CardHandbookList(props: any){
                     setCards={setCards}
                 />
                 <div className="card-body card-list-body">
-                    {}
+                    {cards.map((items: any, index_col: number) => (
+                        items
+                    ))}
                 </div>
             </div>
         </div>
